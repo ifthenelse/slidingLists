@@ -15,7 +15,13 @@
     // Create the defaults once
     var pluginName = "slidingLists",
         defaults = {
-            propertyName: "value"
+            wrapper: ".list-wrapper",
+            container: ".list-body-container ul",
+            back: "a.back-link",
+            links: "a.list-link",
+            parentList: "parent-list",
+            activeList: "active-list",
+            activeLink: "active-link"
         };
 
     // The actual plugin constructor
@@ -28,6 +34,11 @@
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
         this._name = pluginName;
+        this.$wrapper = $(wrapperSl);
+        this.$back = $wrapper.find("a.back-link");
+        this.$lists = $wrapper.find(".list-body-container ul")
+        this.$links = $lists.find("a.list-link");
+        this.$listPath = [$lists.filter(".active-list").eq(0)];
         this.init();
     }
 
@@ -40,10 +51,70 @@
             // and this.settings
             // you can add more functions like the one below and
             // call them like so: this.yourOtherFunction(this.element, this.settings).
+
+            // Extend Array methods
+            if (!Array.prototype.last) {
+                Array.prototype.last = function() {
+                    return this[this.length - 1];
+                };
+            };
+
+            this.$doc = $(document);
+            this.$win = $(window);
+            this.$html = $("html");
+            this.$body = $("body");
+            this.$wrapper = $(".list-wrapper");
+            this.$back = $wrapper.find("a.back-link");
+            this.$lists = $wrapper.find(".list-body-container ul")
+            this.$links = $lists.find("a.list-link");
+            this.$listPath = [$lists.filter(".active-list").eq(0)];
+
+            // click on back button
+            $back.on("click", this.onBackClick);
+
+            // click on list links
+            $links.on("click", this.onLinkClick);
+
             console.log("xD");
         },
-        yourOtherFunction: function() {
-            // some logic
+        function onBackClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if ($listPath.length < 2) {
+                return false;
+            }
+
+            var $cl = $listPath.pop();
+
+            $cl.removeClass("active-list");
+            $listPath.last().removeClass("parent-list");
+            $cl.siblings(".list-link").removeClass("active-link");
+
+            window.setTimeout(function() {
+                $cl.addClass("hidden");
+            }, 310);
+        },
+        function onLinkClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var $link = $(this);
+            var $list = $($link.attr("href"));
+
+            if (!$list.length) {
+                return false;
+            }
+
+            $link.addClass("active-link");
+            $list.removeClass("hidden");
+
+            window.setTimeout(function() {
+                $list.addClass("active-list");
+            }, 10);
+
+            $listPath.last().addClass("parent-list");
+            $listPath.push($list);
         }
     });
 
