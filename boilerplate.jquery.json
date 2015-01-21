@@ -1,45 +1,38 @@
 {
-	"name": "boilerplate",
-	"title": "jQuery Boilerplate",
-	"description": "A jump-start for jQuery plugins development.",
+	"name": "jquery.slidinglists",
+	"title": "jQuery Sliding Lists plugin",
+	"description": "Navigation on nested lists achieved via iOS-like sliding effect. Made with CSS3 and a little of Javascript + jQuery.",
 	"keywords": [
 		"jquery",
-		"boilerplate",
-		"plugins"
+		"navigation",
+		"ios",
+		"list",
+		"transition",
+		"plugin"
 	],
-	"version": "3.3.5",
+	"version": "0.0.1",
 	"author": {
-		"name": "Zeno Rocha",
-		"email": "zno.rocha@gmail.com",
-		"url": "https://github.com/zenorocha"
+		"name": "Andrea Collet",
+		"email": "collet.andrea@gmail.com",
+		"url": "https://www.fluidforfun.net"
 	},
 	"maintainers": [
 		{
-			"name": "Zeno Rocha",
-			"email": "zno.rocha@gmail.com",
-			"url": "https://github.com/zenorocha"
-		},
-		{
-			"name": "Addy Osmani",
-			"email": "addyosmani@gmail.com",
-			"url": "https://github.com/addyosmani"
-		},
-		{
-		  "name": "Helder Santana",
-		  "email": "heldr@me.com",
-		  "url": "https://github.com/heldr"
+			"name": "Andrea Collet",
+			"email": "collet.andrea@gmail.com",
+			"url": "https://www.fluidforfun.net"
 		}
 	],
 	"licenses": [
 		{
 			"type": "MIT",
-			"url": "http://zenorocha.mit-license.org/"
+			"url": "http://opensource.org/licenses/MIT"
 		}
 	],
-	"bugs": "https://github.com/jquery-boilerplate/boilerplate/issues",
-	"homepage": "http://jqueryboilerplate.com",
-	"docs": "https://github.com/jquery-boilerplate/boilerplate#readme",
-	"download": "https://github.com/jquery-boilerplate/boilerplate/archive/master.zip",
+	"bugs": "https://github.com/ifthenelse/jquery-slidinglists/issues",
+	"homepage": "https://github.com/ifthenelse/jquery-slidinglists",
+	"docs": "https://github.com/ifthenelse/jquery-slidinglists#readme",
+	"download": "https://github.com/ifthenelse/jquery-slidinglists/archive/master.zip",
 	"dependencies": {
 		"jquery": ">=1.4"
 	}

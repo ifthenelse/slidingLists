@@ -1,18 +1,19 @@
 {
-	"name": "jquery-boilerplate",
-	"version": "3.3.5",
-	"homepage": "http://jqueryboilerplate.com",
+	"name": "jquery.slidinglists",
+	"version": "0.0.1",
+	"homepage": "https://github.com/ifthenelse/jquery-slidinglists",
 	"authors": [
-		"Zeno Rocha <hi@zenorocha.com>"
+		"Andrea Collet <collet.andrea@gmail.com>"
 	],
-	"description": "A jump-start for jQuery plugins development.",
-	"main": "src/jquery.boilerplate.js",
+	"description": "Navigation on nested lists achieved via iOS-like sliding effect. Made with CSS3 and a little of Javascript + jQuery.",
+	"main": "src/jquery.slidinglists.js",
 	"keywords": [
 		"jquery",
-		"plugin",
-		"boilerplate",
-		"jquery-plugin",
-		"jquery-boilerplate"
+		"navigation",
+		"ios",
+		"list",
+		"transition",
+		"plugin"
 	],
 	"license": "MIT"
 }
