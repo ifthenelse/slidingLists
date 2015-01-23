@@ -15,17 +15,20 @@
     // Create the defaults once
     var pluginName = "slidingLists",
         defaults = {
-            wrapper: ".list-wrapper",
-            container: ".list-body-container ul",
-            back: "a.back-link",
-            links: "a.list-link",
+            wrapper: "list-wrapper",
+            container: "list-container",
+            body_container: "list-body-container",
+            back: "back-link",
+            links: "list-link",
             parentList: "parent-list",
             activeList: "active-list",
             activeLink: "active-link"
         };
+    var _s = null;
 
     // The actual plugin constructor
     function Plugin(element, options) {
+        _s = this;
         this.$element = $(element);
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
@@ -83,8 +86,36 @@
             $listPath.last().addClass("parent-list");
             $listPath.push($list);
         },
-        createMarkup: function () {
-            console.log("createMarkup");
+        createMarkup: function() {
+            if (!this.$element.length) {
+                return false;
+            }
+
+            this.$element.wrap('<div class="' + this.settings.wrapper + '"><div class="' + this.settings.container + '"><div class="' + this.settings.body_container + '">');
+
+            this.$element.trigger("slidingLists.createMarkup");
+        },
+        create: function(e) {
+            // cache variables
+            try {
+                _s.$wrapper = _s.$element.parent(".list-wrapper");
+                _s.$back = _s.$wrapper.find("a.back-link");
+                _s.$lists = _s.$wrapper.find(".list-body-container ul")
+                _s.$links = _s.$lists.find("a.list-link");
+                _s.$listPath = [_s.$lists.filter(".active-list").eq(0)];
+            } catch (err) {
+                $.error(err.message);
+                return false;
+            }
+            // click on back button
+            _s.$back.on("click", _s.onBackClick);
+
+            // click on list links
+            _s.$links.on("click", _s.onLinkClick);
+
+            _s.$element.trigger("slidingLists.complete");
+
+            console.log("create");
         },
         init: function() {
             // Place initialization logic here
@@ -106,21 +137,9 @@
             this.$html = $("html");
             this.$body = $("body");
 
+            this.$element.one("slidingLists.createMarkup", this.create);
+
             this.createMarkup();
-
-            this.$wrapper = this.$element.parent(".list-wrapper");
-            this.$back = this.$wrapper.find("a.back-link");
-            this.$lists = this.$wrapper.find(".list-body-container ul")
-            this.$links = this.$lists.find("a.list-link");
-            this.$listPath = [this.$lists.filter(".active-list").eq(0)];
-
-            // click on back button
-            this.$back.on("click", this.onBackClick);
-
-            // click on list links
-            this.$links.on("click", this.onLinkClick);
-
-            console.log("init");
         }
     });
 
