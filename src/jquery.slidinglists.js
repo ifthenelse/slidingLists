@@ -26,7 +26,7 @@
 
     // The actual plugin constructor
     function Plugin(element, options) {
-        this.element = element;
+        this.$element = $(element);
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
@@ -34,50 +34,17 @@
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
         this._name = pluginName;
-        this.$wrapper = $(wrapperSl);
-        this.$back = $wrapper.find("a.back-link");
-        this.$lists = $wrapper.find(".list-body-container ul")
-        this.$links = $lists.find("a.list-link");
-        this.$listPath = [$lists.filter(".active-list").eq(0)];
+        this.$wrapper = null;
+        this.$back = null;
+        this.$lists = null;
+        this.$links = null;
+        this.$listPath = null;
         this.init();
     }
 
     // Avoid Plugin.prototype conflicts
     $.extend(Plugin.prototype, {
-        init: function() {
-            // Place initialization logic here
-            // You already have access to the DOM element and
-            // the options via the instance, e.g. this.element
-            // and this.settings
-            // you can add more functions like the one below and
-            // call them like so: this.yourOtherFunction(this.element, this.settings).
-
-            // Extend Array methods
-            if (!Array.prototype.last) {
-                Array.prototype.last = function() {
-                    return this[this.length - 1];
-                };
-            };
-
-            this.$doc = $(document);
-            this.$win = $(window);
-            this.$html = $("html");
-            this.$body = $("body");
-            this.$wrapper = $(".list-wrapper");
-            this.$back = $wrapper.find("a.back-link");
-            this.$lists = $wrapper.find(".list-body-container ul")
-            this.$links = $lists.find("a.list-link");
-            this.$listPath = [$lists.filter(".active-list").eq(0)];
-
-            // click on back button
-            $back.on("click", this.onBackClick);
-
-            // click on list links
-            $links.on("click", this.onLinkClick);
-
-            console.log("xD");
-        },
-        function onBackClick(e) {
+        onBackClick: function(e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -95,7 +62,7 @@
                 $cl.addClass("hidden");
             }, 310);
         },
-        function onLinkClick(e) {
+        onLinkClick: function(e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -115,6 +82,45 @@
 
             $listPath.last().addClass("parent-list");
             $listPath.push($list);
+        },
+        createMarkup: function () {
+            console.log("createMarkup");
+        },
+        init: function() {
+            // Place initialization logic here
+            // You already have access to the DOM element and
+            // the options via the instance, e.g. this.element
+            // and this.settings
+            // you can add more functions like the one below and
+            // call them like so: this.yourOtherFunction(this.element, this.settings).
+
+            // Extend Array methods
+            if (!Array.prototype.last) {
+                Array.prototype.last = function() {
+                    return this[this.length - 1];
+                };
+            };
+
+            this.$doc = $(document);
+            this.$win = $(window);
+            this.$html = $("html");
+            this.$body = $("body");
+
+            this.createMarkup();
+
+            this.$wrapper = this.$element.parent(".list-wrapper");
+            this.$back = this.$wrapper.find("a.back-link");
+            this.$lists = this.$wrapper.find(".list-body-container ul")
+            this.$links = this.$lists.find("a.list-link");
+            this.$listPath = [this.$lists.filter(".active-list").eq(0)];
+
+            // click on back button
+            this.$back.on("click", this.onBackClick);
+
+            // click on list links
+            this.$links.on("click", this.onLinkClick);
+
+            console.log("init");
         }
     });
 
