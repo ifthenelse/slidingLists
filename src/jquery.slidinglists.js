@@ -15,8 +15,10 @@
     // Create the defaults once
     var pluginName = "slidingLists",
         defaults = {
+            title: "List title",
             wrapper: "list-wrapper",
             container: "list-container",
+            header_container: "list-header-container",
             body_container: "list-body-container",
             back: "back-link",
             links: "list-link",
@@ -24,108 +26,100 @@
             activeList: "active-list",
             activeLink: "active-link"
         };
-    var _s = null;
 
     // The actual plugin constructor
     function Plugin(element, options) {
-        _s = this;
         this.$element = $(element);
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
         // future instances of the plugin
         this.settings = $.extend({}, defaults, options);
-        this._defaults = defaults;
-        this._name = pluginName;
-        this.$wrapper = null;
-        this.$back = null;
-        this.$lists = null;
-        this.$links = null;
-        this.$listPath = null;
+        this._defaults = defaults,
+            this._name = pluginName,
+            this.$parent = null,
+            this.$wrapper = null,
+            this.$container = null,
+            this.$header_container = null,
+            this.$body_container = null,
+            this.$back = null,
+            this.$lists = null,
+            this.$links = null,
+            this.$listPath = null;
         this.init();
     }
 
     // Avoid Plugin.prototype conflicts
     $.extend(Plugin.prototype, {
-        onBackClick: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if ($listPath.length < 2) {
+        onBackClick: function(el) {
+            if (this.$listPath.length < 2) {
                 return false;
             }
 
-            var $cl = $listPath.pop();
+            var $cl = this.$listPath.pop();
 
-            $cl.removeClass("active-list");
-            $listPath.last().removeClass("parent-list");
-            $cl.siblings(".list-link").removeClass("active-link");
+            $cl.removeClass(this.settings.activeList);
+            this.$listPath.last().removeClass(this.settings.parentList);
+            $cl.siblings(this.settings.links).removeClass(this.settings.activeLink);
 
             window.setTimeout(function() {
                 $cl.addClass("hidden");
             }, 310);
         },
-        onLinkClick: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var $link = $(this);
-            var $list = $($link.attr("href"));
+        onLinkClick: function(el) {
+            var $link = $(el);
+            var $list = $((!$link.attr("href").length) ? $link.attr("href") : $link.siblings("ul").eq(0));
+            var _this = this;
 
             if (!$list.length) {
                 return false;
             }
 
-            $link.addClass("active-link");
+            $link.addClass(this.settings.activeLink);
             $list.removeClass("hidden");
 
             window.setTimeout(function() {
-                $list.addClass("active-list");
+                $list.addClass(_this.settings.activeList);
             }, 10);
 
-            $listPath.last().addClass("parent-list");
-            $listPath.push($list);
+            this.$listPath.last().addClass(this.settings.parentList);
+            this.$listPath.push($list);
         },
-        createMarkup: function() {
+        createListMarkup: function() {
+            // remove this element from the DOM
+            this.$element.detach();
+
+            //  add main structure
+            this.$element.addClass(this.settings.activeList).wrap('<div class="' + this.settings.wrapper + '"><div class="' + this.settings.container + '"><div class="' + this.settings.body_container + '">').end().addClass(this.settings.activeList);
+            var $tmp_wrap = this.$element.parents('.' + this.settings.wrapper).eq(0);
+            $tmp_wrap.prepend('<div class="' + this.settings.header_container + '"><a href="" class="' + this.settings.back + '">&lt;</a><h3>' + this.settings.title + '</h3></div>');
+
+            this.$parent.append($tmp_wrap);
+        },
+        eventsInit: function() {
+            var _this = this;
+            // click on back button
+            this.$back.on("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                _this.onBackClick(this);
+                console.log("< ", _this.$listPath);
+            });
+
+            // click on list links
+            this.$links.on("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                _this.onLinkClick(this);
+                console.log("> ", _this.$listPath);
+            });
+        },
+        init: function() {
             if (!this.$element.length) {
                 return false;
             }
 
-            this.$element.wrap('<div class="' + this.settings.wrapper + '"><div class="' + this.settings.container + '"><div class="' + this.settings.body_container + '">');
-
-            this.$element.trigger("slidingLists.createMarkup");
-        },
-        create: function(e) {
-            // cache variables
-            try {
-                _s.$wrapper = _s.$element.parent(".list-wrapper");
-                _s.$back = _s.$wrapper.find("a.back-link");
-                _s.$lists = _s.$wrapper.find(".list-body-container ul")
-                _s.$links = _s.$lists.find("a.list-link");
-                _s.$listPath = [_s.$lists.filter(".active-list").eq(0)];
-            } catch (err) {
-                $.error(err.message);
-                return false;
-            }
-            // click on back button
-            _s.$back.on("click", _s.onBackClick);
-
-            // click on list links
-            _s.$links.on("click", _s.onLinkClick);
-
-            _s.$element.trigger("slidingLists.complete");
-
-            console.log("create");
-        },
-        init: function() {
-            // Place initialization logic here
-            // You already have access to the DOM element and
-            // the options via the instance, e.g. this.element
-            // and this.settings
-            // you can add more functions like the one below and
-            // call them like so: this.yourOtherFunction(this.element, this.settings).
-
-            // Extend Array methods
+            // add last() method to Array objects
             if (!Array.prototype.last) {
                 Array.prototype.last = function() {
                     return this[this.length - 1];
@@ -136,10 +130,21 @@
             this.$win = $(window);
             this.$html = $("html");
             this.$body = $("body");
+            this.$parent = this.$element.parent();
 
-            this.$element.one("slidingLists.createMarkup", this.create);
+            this.createListMarkup();
 
-            this.createMarkup();
+            this.$wrapper = this.$element.parents("." + this.settings.wrapper).eq(0);
+            this.$container = this.$wrapper.find("." + this.settings.container);
+            this.$header_container = this.$wrapper.find("." + this.settings.header_container);
+            this.$body_container = this.$wrapper.find("." + this.settings.body_container);
+            this.$back = this.$header_container.find("." + this.settings.back);
+            this.$lists = this.$body_container.find('ul');
+            this.$links = this.$lists.find('a');
+            this.$links.addClass(this.settings.links);
+            this.$listPath = [this.$lists.filter('.' + this.settings.activeList).eq(0)];
+
+            this.eventsInit();
         }
     });
 
