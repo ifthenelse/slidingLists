@@ -90,9 +90,9 @@
             this.$element.detach();
 
             //  add main structure
-            this.$element.addClass(this.settings.activeList).wrap('<div class="' + this.settings.wrapper + '"><div class="' + this.settings.container + '"><div class="' + this.settings.body_container + '">').end().addClass(this.settings.activeList);
-            var $tmp_wrap = this.$element.parents('.' + this.settings.wrapper).eq(0);
-            $tmp_wrap.prepend('<div class="' + this.settings.header_container + '"><a href="" class="' + this.settings.back + '">&lt;</a><h3>' + this.settings.title + '</h3></div>');
+            this.$element.addClass(this.settings.activeList).wrap("<div class=\"" + this.settings.wrapper + "\"><div class=\"" + this.settings.container + "\"><div class=\"" + this.settings.body_container + "\">").end().addClass(this.settings.activeList);
+            var $tmp_wrap = this.$element.parents("." + this.settings.wrapper).eq(0);
+            $tmp_wrap.find("." + this.settings.container).eq(0).prepend("<div class=\"" + this.settings.header_container + "\"><a href=\"#\" target=\"_self\" title=\"Up one level\" class=\"" + this.settings.back + "\">&lt;</a><h3>" + this.settings.title + "</h3></div>");
 
             this.$parent.append($tmp_wrap);
         },
@@ -139,10 +139,10 @@
             this.$header_container = this.$wrapper.find("." + this.settings.header_container);
             this.$body_container = this.$wrapper.find("." + this.settings.body_container);
             this.$back = this.$header_container.find("." + this.settings.back);
-            this.$lists = this.$body_container.find('ul');
-            this.$links = this.$lists.find('a');
+            this.$lists = this.$body_container.find("ul");
+            this.$links = this.$lists.find("a");
             this.$links.addClass(this.settings.links);
-            this.$listPath = [this.$lists.filter('.' + this.settings.activeList).eq(0)];
+            this.$listPath = [this.$lists.filter("." + this.settings.activeList).eq(0)];
 
             this.eventsInit();
         }
