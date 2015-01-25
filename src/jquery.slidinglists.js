@@ -22,9 +22,12 @@
             body_container: "list-body-container",
             back: "back-link",
             links: "list-link",
+            hidden: "list-hidden",
             parentList: "parent-list",
             activeList: "active-list",
-            activeLink: "active-link"
+            activeLink: "active-link",
+            duration_in: 300,
+            duration_out: this.duration_in
         };
 
     // The actual plugin constructor
@@ -62,9 +65,11 @@
             this.$listPath.last().removeClass(this.settings.parentList);
             $cl.siblings(this.settings.links).removeClass(this.settings.activeLink);
 
+            var _this = this;
+
             window.setTimeout(function() {
-                $cl.addClass("hidden");
-            }, 310);
+                $cl.addClass(this.settings.hidden);
+            }, (_this.settings.duration_out + 10));
         },
         onLinkClick: function(el) {
             var $link = $(el);
@@ -76,7 +81,7 @@
             }
 
             $link.addClass(this.settings.activeLink);
-            $list.removeClass("hidden");
+            $list.removeClass(this.settings.hidden);
 
             window.setTimeout(function() {
                 $list.addClass(_this.settings.activeList);
