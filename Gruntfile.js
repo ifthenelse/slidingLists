@@ -1,78 +1,91 @@
 module.exports = function(grunt) {
 
-	grunt.initConfig({
+    grunt.initConfig({
 
-		// Import package manifest
-		pkg: grunt.file.readJSON("slidinglists.jquery.json"),
+        // Import package manifest
+        pkg: grunt.file.readJSON("slidinglists.jquery.json"),
 
-		// Banner definitions
-		meta: {
-			banner: "/*\n" +
-				" *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n" +
-				" *  <%= pkg.description %>\n" +
-				" *  <%= pkg.homepage %>\n" +
-				" *\n" +
-				" *  Made by <%= pkg.author.name %>\n" +
-				" *  Under <%= pkg.licenses[0].type %> License\n" +
-				" */\n"
-		},
+        // Banner definitions
+        meta: {
+            banner: "/*\n" +
+                " *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n" +
+                " *  <%= pkg.description %>\n" +
+                " *  <%= pkg.homepage %>\n" +
+                " *\n" +
+                " *  Made by <%= pkg.author.name %>\n" +
+                " *  Under <%= pkg.licenses[0].type %> License\n" +
+                " */\n"
+        },
 
-		// Concat definitions
-		concat: {
-			dist: {
-				src: ["src/jquery.slidinglists.js"],
-				dest: "dist/jquery.slidinglists.js"
-			},
-			options: {
-				banner: "<%= meta.banner %>"
-			}
-		},
+        // Concat definitions
+        concat: {
+            dist: {
+                src: ["src/<%= pkg.name %>.js"],
+                dest: "dist/<%= pkg.name %>.js"
+            },
+            options: {
+                banner: "<%= meta.banner %>"
+            }
+        },
 
-		// Lint definitions
-		jshint: {
-			files: ["src/jquery.slidinglists.js"],
-			options: {
-				jshintrc: ".jshintrc"
-			}
-		},
+        // Lint definitions
+        jshint: {
+            files: ["src/<%= pkg.name %>.js"],
+            options: {
+                jshintrc: ".jshintrc"
+            }
+        },
 
-		// Minify definitions
-		uglify: {
-			my_target: {
-				src: ["dist/jquery.slidinglists.js"],
-				dest: "dist/jquery.slidinglists.min.js"
-			},
-			options: {
-				banner: "<%= meta.banner %>"
-			}
-		},
+        // Minify definitions
+        uglify: {
+            my_target: {
+                src: ["dist/<%= pkg.name %>.js"],
+                dest: "dist/<%= pkg.name %>.min.js"
+            },
+            options: {
+                banner: "<%= meta.banner %>"
+            }
+        },
 
-		// CoffeeScript compilation
-		coffee: {
-			compile: {
-				files: {
-					"dist/jquery.slidinglists.js": "src/jquery.slidinglists.coffee"
-				}
-			}
-		},
+        // Compile SASS in CSS
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'dist/<%= pkg.name %>.css': 'src/<%= pkg.name %>.scss'
+                }
+            }
+        },
 
-		// watch for changes to source
-		// Better than calling grunt a million times
-		// (call 'grunt watch')
-		watch: {
-		    files: ['src/*'],
-		    tasks: ['default']
-		}
+        // CoffeeScript compilation
+        coffee: {
+            compile: {
+                files: {
+                    "dist/<%= pkg.name %>.js": "src/<%= pkg.name %>.coffee"
+                }
+            }
+        },
 
-	});
+        // watch for changes to source
+        // Better than calling grunt a million times
+        // (call 'grunt watch')
+        watch: {
+            files: ['src/*'],
+            tasks: ['default']
+        }
 
-	grunt.loadNpmTasks("grunt-contrib-concat");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks("grunt-contrib-coffee");
-	grunt.loadNpmTasks("grunt-contrib-watch");
+    });
 
-	grunt.registerTask("default", ["jshint", "concat", "uglify"]);
-	grunt.registerTask("travis", ["jshint"]);
+    grunt.loadNpmTasks("grunt-contrib-concat");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-sass");
+    grunt.loadNpmTasks("grunt-contrib-coffee");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+
+    grunt.registerTask("default", ["jshint", "concat", "uglify", "sass"]);
+    grunt.registerTask("travis", ["jshint"]);
 
 };
