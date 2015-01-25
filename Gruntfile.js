@@ -43,6 +43,7 @@ module.exports = function(grunt) {
                 dest: "dist/<%= pkg.name %>.min.js"
             },
             options: {
+                sourceMap: true,
                 banner: "<%= meta.banner %>"
             }
         },
@@ -54,7 +55,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'dist/<%= pkg.name %>.css': 'src/<%= pkg.name %>.scss'
+                    'dist/<%= pkg.name %>.css': 'src/<%= pkg.name %>.sass'
                 }
             }
         },
