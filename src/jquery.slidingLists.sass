@@ -30,7 +30,7 @@ body
                 position: relative
                 background: none
                 background-color: $lightgrey
-                a.back-link
+                a.list-back-link
                     display: inline-block
                     position: absolute
                     padding: 30px 20px
@@ -77,15 +77,15 @@ body
                 width: 100%
                 min-height: $list-height
                 background-color: $white
-                &.hidden
+                &.list-hidden
                     display: none
-                &.active-list
+                &.list-active
                     display: block
                     -webkit-transform: translateX(13%)
                     -ms-transform: translateX(13%)
                     transform: translateX(13%)
                     min-height: 100%
-                    &.parent-list
+                    &.list-parent
                         -webkit-transform: translateX(0%)
                         -ms-transform: translateX(0%)
                         transform: translateX(0%)
@@ -96,7 +96,7 @@ body
                     padding: 0
                     &:first-child
                         border-top: 0 none
-                    a
+                    .list-link
                         display: block
                         padding: 1.2rem 6rem 1.2rem 1rem
                         color: $black
@@ -107,5 +107,5 @@ body
                             float: left
                         .right-arrow
                             float: right
-                        &:hover, &:focus, &.active-link
+                        &:hover, &:focus, &.list-link-active
                             color: $blue

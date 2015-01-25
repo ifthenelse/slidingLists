@@ -20,12 +20,12 @@
             container: "list-container",
             header_container: "list-header-container",
             body_container: "list-body-container",
-            back: "back-link",
+            back: "list-back-link",
             links: "list-link",
             hidden: "list-hidden",
-            parentList: "parent-list",
-            activeList: "active-list",
-            activeLink: "active-link",
+            parentList: "list-parent",
+            activeList: "list-active",
+            activeLink: "list-link-active",
             duration_in: 300,
             duration_out: this.duration_in
         };
@@ -59,16 +59,15 @@
                 return false;
             }
 
+            var _this = this;
             var $cl = this.$listPath.pop();
 
             $cl.removeClass(this.settings.activeList);
             this.$listPath.last().removeClass(this.settings.parentList);
             $cl.siblings(this.settings.links).removeClass(this.settings.activeLink);
 
-            var _this = this;
-
             window.setTimeout(function() {
-                $cl.addClass(this.settings.hidden);
+                $cl.addClass(_this.settings.hidden);
             }, (_this.settings.duration_out + 10));
         },
         onLinkClick: function(el) {
