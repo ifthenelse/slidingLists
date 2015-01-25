@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>jQuery Boilerplate</title>
+		<title>jQuery SlidingLists Plugin</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 		<script src="../src/jquery.slidinglists.js"></script>
 	</head>
@@ -1559,11 +1559,13 @@
             </li>
         </ul>
 		<script>
-			$(function() {
-				$("#list-to-slide").slidingLists({
-					propertyName: "a custom value"
-				});
-			});
+            (function($) {
+    			$(function() {
+    				$("#list-to-slide").slidingLists({
+    					title: "A sample list"
+    				});
+    			});
+            })(jQuery);
 		</script>
 	</body>
 </html>
