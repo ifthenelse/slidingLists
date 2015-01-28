@@ -27,17 +27,26 @@
             activeList: "list-active",
             activeLink: "list-link-active",
             duration_in: 300,
-            duration_out: this.duration_in
+            duration_out: null,
+            transitions: "auto"
         };
 
     // The actual plugin constructor
     function Plugin(element, options) {
+        this.element = element;
         this.$element = $(element);
         // jQuery has an extend method which merges the contents of two or
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
         // future instances of the plugin
+        if (typeof options.title !== 'string') {
+            var days = options.expires, t = options.expires = new Date();
+            t.setTime(+t + days * 864e+5);
+        }
         this.settings = $.extend({}, defaults, options);
+        if (this.settings.duration_out === null) {
+            this.settings.duration_out = this.settings.duration_in;
+        }
         this._defaults = defaults,
             this._name = pluginName,
             this.$parent = null,
@@ -54,7 +63,10 @@
 
     // Avoid Plugin.prototype conflicts
     $.extend(Plugin.prototype, {
-        onBackClick: function(el) {
+        _bringListOnTop: function() {
+            this.$body_container.scrollTop(0);
+        },
+        _onBackClick: function(el) {
             if (this.$listPath.length < 2) {
                 return false;
             }
@@ -67,10 +79,11 @@
             $cl.siblings(this.settings.links).removeClass(this.settings.activeLink);
 
             window.setTimeout(function() {
+                _this._bringListOnTop();
                 $cl.addClass(_this.settings.hidden);
             }, (_this.settings.duration_out + 10));
         },
-        onLinkClick: function(el) {
+        _onLinkClick: function(el) {
             var $link = $(el);
             var $list = $((!$link.attr("href").length) ? $link.attr("href") : $link.siblings("ul").eq(0));
             var _this = this;
@@ -84,12 +97,15 @@
 
             window.setTimeout(function() {
                 $list.addClass(_this.settings.activeList);
+                window.setTimeout(function() {
+                    _this._bringListOnTop();
+                }, (_this.settings.duration_in + 10));
             }, 10);
 
             this.$listPath.last().addClass(this.settings.parentList);
             this.$listPath.push($list);
         },
-        createListMarkup: function() {
+        _createListMarkup: function() {
             // remove this element from the DOM
             this.$element.detach();
 
@@ -100,22 +116,20 @@
 
             this.$parent.append($tmp_wrap);
         },
-        eventsInit: function() {
+        _eventsInit: function() {
             var _this = this;
             // click on back button
             this.$back.on("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                _this.onBackClick(this);
-                console.log("< ", _this.$listPath);
+                _this._onBackClick(this);
             });
 
             // click on list links
             this.$links.on("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                _this.onLinkClick(this);
-                console.log("> ", _this.$listPath);
+                _this._onLinkClick(this);
             });
         },
         init: function() {
@@ -136,7 +150,7 @@
             this.$body = $("body");
             this.$parent = this.$element.parent();
 
-            this.createListMarkup();
+            this._createListMarkup();
 
             this.$wrapper = this.$element.parents("." + this.settings.wrapper).eq(0);
             this.$container = this.$wrapper.find("." + this.settings.container);
@@ -148,7 +162,7 @@
             this.$links.addClass(this.settings.links);
             this.$listPath = [this.$lists.filter("." + this.settings.activeList).eq(0)];
 
-            this.eventsInit();
+            this._eventsInit();
         }
     });
 
