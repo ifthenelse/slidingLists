@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         // Import package manifest
-        pkg: grunt.file.readJSON("slidinglists.jquery.json"),
+        pkg: grunt.file.readJSON("slidingLists.jquery.json"),
 
         // Banner definitions
         meta: {

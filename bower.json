@@ -1,12 +1,12 @@
 {
-	"name": "jquery.slidinglists",
+	"name": "slidingLists",
 	"version": "0.0.1",
-	"homepage": "https://github.com/ifthenelse/jquery-slidinglists",
+	"homepage": "https://github.com/ifthenelse/slidingLists",
 	"authors": [
 		"Andrea Collet <collet.andrea@gmail.com>"
 	],
 	"description": "Navigation on nested lists achieved via iOS-like sliding effect. Made with CSS3 and a little of Javascript + jQuery.",
-	"main": "src/jquery.slidinglists.js",
+	"main": "src/jquery.slidingLists.js",
 	"keywords": [
 		"jquery",
 		"navigation",

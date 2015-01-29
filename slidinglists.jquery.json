@@ -1,6 +1,6 @@
 {
-	"name": "jquery.slidinglists",
-	"title": "jQuery Sliding Lists plugin",
+	"name": "slidingLists",
+	"title": "jQuery slidingLists plugin",
 	"description": "Navigation on nested lists achieved via iOS-like sliding effect. Made with CSS3 and a little of Javascript + jQuery.",
 	"keywords": [
 		"jquery",
@@ -29,10 +29,10 @@
 			"url": "http://opensource.org/licenses/MIT"
 		}
 	],
-	"bugs": "https://github.com/ifthenelse/jquery-slidinglists/issues",
-	"homepage": "https://github.com/ifthenelse/jquery-slidinglists",
-	"docs": "https://github.com/ifthenelse/jquery-slidinglists#readme",
-	"download": "https://github.com/ifthenelse/jquery-slidinglists/archive/master.zip",
+	"bugs": "https://github.com/ifthenelse/slidingLists/issues",
+	"homepage": "https://github.com/ifthenelse/slidingLists",
+	"docs": "https://github.com/ifthenelse/slidingLists#readme",
+	"download": "https://github.com/ifthenelse/slidingLists/archive/master.zip",
 	"dependencies": {
 		"jquery": ">=1.4"
 	}
