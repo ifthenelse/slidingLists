@@ -1,6 +1,5 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;
 (function($, window, document, undefined) {
 
     // undefined is used here as the undefined global variable in ECMAScript 3 is
@@ -39,7 +38,7 @@
         // more objects, storing the result in the first object. The first object
         // is generally empty as we don't want to alter the default options for
         // future instances of the plugin
-        if (typeof options.title !== 'string') {
+        if (typeof options.title !== "string") {
             var days = options.expires, t = options.expires = new Date();
             t.setTime(+t + days * 864e+5);
         }
@@ -66,7 +65,7 @@
         _bringListOnTop: function() {
             this.$body_container.scrollTop(0);
         },
-        _onBackClick: function(el) {
+        _onBackClick: function() {
             if (this.$listPath.length < 2) {
                 return false;
             }
@@ -122,7 +121,7 @@
             this.$back.on("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                _this._onBackClick(this);
+                _this._onBackClick();
             });
 
             // click on list links
@@ -142,7 +141,7 @@
                 Array.prototype.last = function() {
                     return this[this.length - 1];
                 };
-            };
+            }
 
             this.$doc = $(document);
             this.$win = $(window);
