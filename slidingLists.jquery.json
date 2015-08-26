@@ -1,0 +1,39 @@
+{
+	"name": "slidingLists",
+	"version": "1.0.0",
+    "title": "jQuery slidingLists plugin",
+    "description": "Navigation on nested lists achieved via iOS-like sliding effect. Made with CSS3 and a little of Javascript + jQuery.",
+	"author": {
+		"name": "Andrea Collet",
+		"email": "collet.andrea@gmail.com",
+		"url": "https://www.fluidforfun.net"
+	},
+	"maintainers": [
+		{
+			"name": "Andrea Collet",
+			"email": "collet.andrea@gmail.com",
+			"url": "https://www.fluidforfun.net"
+		}
+	],
+    "keywords": [
+        "jquery",
+        "navigation",
+        "ios",
+        "list",
+        "transition",
+        "plugin"
+    ],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://opensource.org/licenses/MIT"
+		}
+	],
+	"bugs": "https://github.com/ifthenelse/slidingLists/issues",
+	"homepage": "https://github.com/ifthenelse/slidingLists",
+	"docs": "https://github.com/ifthenelse/slidingLists#readme",
+	"download": "https://github.com/ifthenelse/slidingLists/archive/master.zip",
+	"dependencies": {
+		"jquery": ">=1.4"
+	}
+}

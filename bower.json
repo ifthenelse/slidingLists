@@ -1,0 +1,19 @@
+{
+	"name": "slidingLists",
+	"version": "1.0.0",
+	"homepage": "https://github.com/ifthenelse/slidingLists",
+	"authors": [
+		"Andrea Collet <collet.andrea@gmail.com>"
+	],
+	"description": "Navigation on nested lists achieved via iOS-like sliding effect. Made with CSS3 and a little of Javascript + jQuery.",
+	"main": "src/jquery.slidingLists.js",
+	"keywords": [
+		"jquery",
+		"navigation",
+		"ios",
+		"list",
+		"transition",
+		"plugin"
+	],
+	"license": "MIT"
+}

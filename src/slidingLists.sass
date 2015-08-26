@@ -1,0 +1,111 @@
+$lightgrey: #f7f7f9
+$grey: #d2d2d2
+$darkgrey: #676767
+$white: white
+$black: black
+$blue: #2eb5ef
+
+$list-width: 500px
+$list-height: 300px
+
+body
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-size: 14px
+    line-height: 1em
+    background-color: $lightgrey
+    color: $black
+    h1
+        text-align: center
+        margin-bottom: 3.5rem
+    .list-wrapper
+        -webkit-box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1)
+        box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1)
+        position: relative
+        margin: 0 auto
+        width: $list-width
+        .list-container
+            position: relative
+            overflow: hidden
+            .list-header-container
+                position: relative
+                background: none
+                background-color: $lightgrey
+                a.list-back-link
+                    display: inline-block
+                    position: absolute
+                    padding: 30px 20px
+                    vertical-align: middle
+                    text-decoration: none
+                    &:hover
+                        color: $blue
+                h3
+                    margin: 0
+                    border: 0 none
+                    padding: 30px 20px
+                    text-align: center
+                    font-weight: 400
+                    color: $black
+        .list-body-container
+            position: relative
+            left: -15%
+            overflow-x: hidden
+            overflow-y: auto
+            -webkit-box-sizing: border-box
+            -moz-box-sizing: border-box
+            box-sizing: border-box
+            height: $list-height
+            width: 115%
+            ul
+                -webkit-transition: min-height 0 linear, -webkit-transform 0.3s ease-out
+                transition: min-height 0 linear, transform 0.3s ease-out
+                -webkit-transform: translateX(115%)
+                -ms-transform: translateX(115%)
+                transform: translateX(115%)
+                -webkit-box-sizing: border-box
+                -moz-box-sizing: border-box
+                box-sizing: border-box
+                -webkit-box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1)
+                box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1)
+                display: block
+                position: absolute
+                list-style: none
+                top: 0
+                left: 0
+                margin: 0
+                border: 0 none
+                padding: 0
+                width: 100%
+                min-height: $list-height
+                background-color: $white
+                &.list-hidden
+                    display: none
+                &.list-active
+                    display: block
+                    -webkit-transform: translateX(13%)
+                    -ms-transform: translateX(13%)
+                    transform: translateX(13%)
+                    min-height: 100%
+                    &.list-parent
+                        -webkit-transform: translateX(0%)
+                        -ms-transform: translateX(0%)
+                        transform: translateX(0%)
+                li
+                    display: block
+                    margin: 0 0 0 2rem
+                    border-top: 1px solid $grey
+                    padding: 0
+                    &:first-child
+                        border-top: 0 none
+                    .list-link
+                        display: block
+                        padding: 1.2rem 6rem 1.2rem 1rem
+                        color: $black
+                        text-decoration: none
+                        font-size: 1rem
+                        font-weight: 300
+                        .list-label
+                            float: left
+                        .right-arrow
+                            float: right
+                        &:hover, &:focus, &.list-link-active
+                            color: $blue
