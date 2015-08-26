@@ -4,7 +4,7 @@
  *  https://github.com/ifthenelse/slidingLists
  *
  *  Made by Andrea Collet
- *  Under MIT License
+ *  Under  License
  */
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.

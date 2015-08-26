@@ -5,17 +5,17 @@ module.exports = function(grunt) {
         // Import package manifest
         pkg: grunt.file.readJSON("slidingLists.jquery.json"),
 
-		// Banner definitions
-		meta: {
-			banner: "/*\n" +
-				" *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n" +
-				" *  <%= pkg.description %>\n" +
-				" *  <%= pkg.homepage %>\n" +
-				" *\n" +
-				" *  Made by <%= pkg.author.name %>\n" +
-				" *  Under <%= pkg.license %> License\n" +
-				" */\n"
-		},
+        // Banner definitions
+        meta: {
+            banner: "/*\n" +
+                " *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n" +
+                " *  <%= pkg.description %>\n" +
+                " *  <%= pkg.homepage %>\n" +
+                " *\n" +
+                " *  Made by <%= pkg.author.name %>\n" +
+                " *  Under <%= pkg.license %> License\n" +
+                " */\n"
+        },
 
         // Concat definitions
         concat: {
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-coffee");
     grunt.loadNpmTasks("grunt-contrib-watch");
 
-	grunt.registerTask("build", ["concat", "uglify"]);
+    grunt.registerTask("build", ["concat", "uglify"]);
     grunt.registerTask("default", ["jshint", "concat", "uglify", "sass"]);
     grunt.registerTask("travis", ["jshint"]);
 
